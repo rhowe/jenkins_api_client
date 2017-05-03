@@ -490,7 +490,7 @@ module JenkinsApi
       @logger.info "Initializing Jenkins Update Center..."
       @logger.debug "Obtaining the JSON data for Update Center..."
       # TODO: Clean me up
-      update_center_data = open("http://updates.jenkins-ci.org/update-center.json").read
+      update_center_data = open("https://updates.jenkins.io/update-center.json").read
       # The Jenkins mirror returns the data in the following format
       #   updateCenter.post(
       #     {.. JSON data...}

@@ -1,17 +1,17 @@
 Jenkins API Client
 ==================
 
-[![Gem Version](http://img.shields.io/gem/v/jenkins_api_client.svg)][gem]
-[![Build Status](http://img.shields.io/travis/arangamani/jenkins_api_client.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/arangamani/jenkins_api_client.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/arangamani/jenkins_api_client.svg)][codeclimate]
+[![Gem Version](https://img.shields.io/gem/v/jenkins_api_client.svg)][gem]
+[![Build Status](https://img.shields.io/travis/arangamani/jenkins_api_client.svg)][travis]
+[![Dependency Status](https://img.shields.io/gemnasium/arangamani/jenkins_api_client.svg)][gemnasium]
+[![Code Climate](https://img.shields.io/codeclimate/github/arangamani/jenkins_api_client.svg)][codeclimate]
 
 [gem]: https://rubygems.org/gems/jenkins_api_client
-[travis]: http://travis-ci.org/arangamani/jenkins_api_client
+[travis]: https://travis-ci.org/arangamani/jenkins_api_client
 [gemnasium]: https://gemnasium.com/arangamani/jenkins_api_client
 [codeclimate]: https://codeclimate.com/github/arangamani/jenkins_api_client
 
-Copyright &copy; 2012-2013, Kannan Manickam [![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
+Copyright &copy; 2012-2013, [Kannan Manickam](https://coderwall.com/arangamani)
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
@@ -361,7 +361,7 @@ puts @client.exec_cli("version")
 * authentication with public/private key file
 remember to upload the public key to:
 
-    `http://#{Server IP}:#{Server Port}/user/#{Username}/configure`
+    `https://#{Server IP}:#{Server Port}/user/#{Username}/configure`
 
 ```ruby
 @client = JenkinsApi::Client.new(:server_ip => '127.0.0.1',
@@ -376,7 +376,7 @@ fulfilled:
   variable
 * The ```jenkins_api_client/java_deps/jenkins-cli.jar``` is required as the
   client to run the CLI. You can retrieve the available commands via accessing
-  the URL: ```http://<server>:<port>/cli```
+  the URL: ```https://<server>:<port>/cli```
 * (Optional) required if you run the Groovy Script through CLI, make sure
   the *user* have the privilige to run script
 
@@ -425,7 +425,7 @@ then set that in the client.
   @client.logger = Logger.new('foo.log', 10, 1024000)
 ```
 Please refer to [Ruby
-Logger](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html)
+Logger](https://ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html)
 for more information.
 
 CONTRIBUTING:
