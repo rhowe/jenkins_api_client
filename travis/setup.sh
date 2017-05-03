@@ -16,8 +16,8 @@ sudo service jenkins start
 # Jenkins takes a bit to get dressed up and become ready, so be patient...
 sleep 60
 cat /var/log/jenkins/jenkins.log
-echo `sudo service jenkins status`
+sudo service jenkins status
 
 # Create the credentials file used by functional tests
-sudo mkdir ~/.jenkins_api_client
-sudo cp -f travis/spec.yml ~/.jenkins_api_client/spec.yml
+mkdir ~/.jenkins_api_client
+cp -f travis/spec.yml ~/.jenkins_api_client/spec.yml
