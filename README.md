@@ -94,7 +94,8 @@ if appropriate.
 When connecting over HTTPS if the server's certificate is not trusted the
 connection will be aborted. To trust a certificate specify the `ca_file`
 parameter when creating the client. The value should be a path to a PEM encoded
-file containing the certificates.
+file containing the certificates. To skip certificate checking (not encouraged)
+set the `insecure_ssl` parameter when creating the client to `true`.
 
 ### Basic Usage
 

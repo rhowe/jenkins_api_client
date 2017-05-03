@@ -66,6 +66,7 @@ module JenkinsApi
       "http_open_timeout",
       "http_read_timeout",
       "ssl",
+      "insecure_ssl",
       "ca_file",
       "follow_redirects",
       "identity_file",
@@ -92,6 +93,7 @@ module JenkinsApi
     # @option args [String] :proxy_protocol the proxy protocol ('socks' or 'http' (defaults to HTTP)
     # @option args [String] :jenkins_path ("/") the optional context path for Jenkins
     # @option args [Boolean] :ssl (false) indicates if Jenkins is accessible over HTTPS
+    # @option args [Boolean] :insecure_ssl (false) indicates whether to skip validating SSL certificates
     # @option args [String] :ca_file the path to a PEM encoded file containing trusted certificates used to verify peer certificate
     # @option args [Boolean] :follow_redirects this argument causes the client to follow a redirect (jenkins can
     #   return a 30x when starting a build)
@@ -254,6 +256,7 @@ module JenkinsApi
     def inspect
       "#<JenkinsApi::Client:0x#{(self.__id__ * 2).to_s(16)}" +
         " @ssl=#{@ssl.inspect}," +
+        " @insecure_ssl=#{@insecure_ssl.inspect}," +
         " @ca_file=#{@ca_file.inspect}," +
         " @log_location=#{@log_location.inspect}," +
         " @log_level=#{@log_level.inspect}," +
@@ -308,7 +311,7 @@ module JenkinsApi
       if @ssl
         http.use_ssl = true
 
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        http.verify_mode = @insecure_ssl ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
         http.ca_file = @ca_file if @ca_file
       end
 
@@ -615,8 +618,10 @@ module JenkinsApi
     #
     def exec_cli(command, args = [])
       base_dir = File.dirname(__FILE__)
-      server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
+      scheme = @ssl ? 'https' : 'http'
+      server_url = "#{scheme}://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
       cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url}"
+      cmd << " -noCertificateCheck" if @insecure_ssl
       cmd << " -i #{@identity_file}" if @identity_file && !@identity_file.empty?
       cmd << " #{command}"
       cmd << " --username #{@username} --password #{@password}" if @identity_file.nil? || @identity_file.empty?

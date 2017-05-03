@@ -133,4 +133,20 @@ describe JenkinsApi::Client do
       end
     end
   end
+
+  context "Given a server with an untrusted SSL certificate" do
+    let(:creds_file) { '~/.jenkins_api_client/spec.yml' }
+    let(:creds) {
+      creds = YAML.load_file(File.expand_path(creds_file, __FILE__))
+      creds[:server_port] = 8443
+      creds[:ssl] = true
+      creds[:insecure_ssl] = true
+      creds
+    }
+    let(:client) { JenkinsApi::Client.new(creds) }
+
+    it "Should connect without an error" do
+      expect { client.job.list_all }.not_to raise_error
+    end
+  end
 end
